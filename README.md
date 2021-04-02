@@ -8,4 +8,4 @@ This plugin have been created by Yoann LAMY under the terms of the [GNU General 
 
 ### Installation
 
-Extract the contents of this ZIP file in the FOGProject web content folder (usually /var/www/html/fog/lib/plugins/) : unzip fog-plugin-hostext.zip -d /var/www/html/fog/lib/plugins/
+Extract the contents of this ZIP file into the FOG Project web content folder (usually /var/www/html/fog/lib/plugins/) : unzip fog-plugin-hostext.zip -d /var/www/html/fog/lib/plugins/
