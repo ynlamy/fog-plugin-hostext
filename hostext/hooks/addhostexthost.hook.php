@@ -108,9 +108,11 @@ class AddHostextHost extends Hook
             } else {
                 $inputstr = str_replace('${{REPL}}', $obj->get($item->variable), $inputstr);
             }
-            $inputstr .= '"><i class="icon fa fa-external-link" title="';
+            $inputstr .= '" target="_blank"><i class="icon fa fa-external-link" title="';
             $inputstr .= $item->name;
-            $inputstr .= '"></i></a>';
+            $inputstr .= '"></i> ';
+            $inputstr .= $item->name;
+            $intputstr .= '</a>';
             $fields = [
                 FOGPage::makeLabel(
                     'col-sm-3 control-label',
