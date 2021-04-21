@@ -1,10 +1,10 @@
 <?php
 /**
- * Adds the hostext report type.
+ * Injects hostext stuff into the api system.
  *
  * PHP version 5
  *
- * @category AddHostextType
+ * @category AddHostextApi
  * @package  FOGProject
  * @author   Yoann LAMY
  * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
@@ -12,37 +12,37 @@
  * @link     https://fogproject.org
  */
 /**
- * Adds the hostext report type.
+ * Injects hostext stuff into the api system.
  *
- * @category AddHostextType
+ * @category AddHostextApi
  * @package  FOGProject
  * @author   Yoann LAMY
  * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
-class AddHostextType extends Hook
+class AddHostextAPI extends Hook
 {
     /**
-     * The name of this hook.
+     * The name of the hook.
      *
      * @var string
      */
-    public $name = 'AddHostextType';
+    public $name = 'AddHostextAPI';
     /**
-     * The description of this hook.
+     * The description.
      *
      * @var string
      */
-    public $description = 'Add Report Management Type';
+    public $description = 'Add Hostext stuff into the api system.';
     /**
-     * The active flag.
+     * For posterity.
      *
      * @var bool
      */
     public $active = true;
     /**
-     * The node this hook enacts with.
+     * The node the hook works with.
      *
      * @var string
      */
@@ -59,8 +59,23 @@ class AddHostextType extends Hook
             return;
         }
         self::$HookManager->register(
-            'REPORT_TYPES',
-            [$this, 'reportTypes']
+            'API_VALID_CLASSES',
+            [$this, 'injectAPIElements']
+        );
+    }
+    /**
+     * This function injects hostext elements for
+     * api access.
+     *
+     * @param mixed $arguments The arguments to modify.
+     *
+     * @return void
+     */
+    public function injectAPIElements($arguments)
+    {
+        array_push(
+            $arguments['validClasses'],
+            $this->node
         );
     }
 }

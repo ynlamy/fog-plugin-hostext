@@ -1,12 +1,22 @@
 <?php
 /**
- * Hostext manager mass class.
+ * Hostext manager mass management class
  *
- * PHP Version 5
+ * PHP version 5
  *
  * @category HostextManager
  * @package  FOGProject
- * @author   Yoann LAMY
+ * @author   Yoann LAMY 
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */
+/**
+ * Hostext manager mass management class
+ *
+ * @category HostextManager
+ * @package  FOGProject
+ * @author   Yoann LAMY 
  * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
@@ -20,7 +30,7 @@ class HostextManager extends FOGManagerController
      */
     public $tablename = 'hostext';
     /**
-     * Perform the database and plugin installation
+     * Install our database
      *
      * @return bool
      */
@@ -30,62 +40,71 @@ class HostextManager extends FOGManagerController
         $sql = Schema::createTable(
             $this->tablename,
             true,
-            array(
+            [
                 'heId',
                 'heName',
                 'heUrl',
                 'heVariable'
-            ),
-            array(
+            ],
+            [
                 'INTEGER',
                 'VARCHAR(255)',
                 'VARCHAR(255)',
                 "ENUM('name', 'primac', 'description')"
-            ),
-            array(
+            ],
+            [
                 false,
                 false,
                 false,
-                false
-            ),
-            array(
+                false,
+            ],
+            [
                 false,
                 false,
                 false,
-                false
-            ),
-            array(
-                'heId'
-            ),
-            'MyISAM',
+                false,
+            ],
+            [
+                'heId',
+            ],
+            'InnoDB',
             'utf8',
             'heId',
             'heId'
         );
-        return self::$DB->query($sql);
+        if (!self::$DB->query($sql)) {
+            return false;
+        }
+        return true;
     }
     /**
      * Gets the variable name.
      *
      * @param string $variable the variable
+     * @param bool   $retTypesArr Return the types array
      *
      * @return string
-     */	
+     */
     public function getVariableName(
-        $variable = ''
+        $variable = '',
+        $retTypesArr = false
     ) {
-        $types = array(
+        $types = [
+            'description' => _('Host Description'),
             'name' => _('Host Name'),
-            'primac' => _('Primary MAC'),
-            'description' => _('Host description'),
-        );
-		return $types[$variable];
-    }	
+            'primac' => _('Primary MAC')
+        ];
+
+        if ($retTypesArr) return $types;
+
+        return $types[$variable];
+    }
     /**
      * Gets the predefined variables.
      *
      * @param string $selected the item that is selected
-     * @param bool   $array    the item is an array.
+     * @param bool $array the item is an array
+     * @param mixed $id the id to use
      *
      * @return string
      */
@@ -94,47 +113,21 @@ class HostextManager extends FOGManagerController
         $array = false,
         $id = ''
     ) {
-        $types = array(
-            'name' => _('Host Name'),
-            'primac' => _('Primary MAC'),
-            'description' => _('Host description'),
-        );
+        $types = $this->getVariableName('', true);
         self::$HookManager->processEvent(
             'HOSTEXT_VARIABLE_TYPES',
-            array('types' => &$types)
+            ['types' => &$types]
         );
+
         ob_start();
-        foreach ((array) $types as $val => &$text) {
-            printf(
-                '<option value="%s"%s>%s</option>',
-                trim($val),
-                (
-                    $template !== false
-                    && trim($template) === trim($val) ?
-                    ' selected' :
-                    (
-                        trim($selected) === trim($val) ?
-                        ' selected' :
-                        ''
-                    )
-                ),
-                $text
-            );
-        }        
+        array_walk($types, self::$buildSelectBox);
         return sprintf(
-            '<select class="form-control hostextselect-variable" name="variable%s"%s>%s%s</select>',
+            '<select class="form-control hostextselect-variable" '
+            . 'name="variable%s"%s>%s%s</select>',
+            ($array !== false ? '[]' : ''),
+            ($id ? ' id="'. $id . '"' : ''),
             (
-                $array !== false ?
-                '[]' :
-                ''
-            ),
-            (
-                $id ?
-                ' id="'.$id.'"' :
-                ''
-            ),
-            (
-                $array === false ?
+                false === $array ?
                 sprintf(
                     '<option value="">- %s -</option>',
                     self::$foglang['PleaseSelect']
