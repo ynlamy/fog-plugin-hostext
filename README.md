@@ -6,6 +6,8 @@ This plugin have been created by Yoann LAMY under the terms of the [GNU General 
 
 ![Preview](fog-plugin-hostext.gif)
 
+This plugin has been tested with [FOG Project](https://fogproject.org/) v1.5.9.
+
 ### Installation
 
 Extract the contents of this ZIP file into the FOG Project web content folder (usually /var/www/html/fog/lib/plugins/) :
