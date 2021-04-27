@@ -2,7 +2,7 @@
 /**
  * Hostext manager mass class.
  *
- * PHP Version 5
+ * PHP version 5
  *
  * @category HostextManager
  * @package  FOGProject
@@ -11,6 +11,17 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
+/**
+ * Hostext manager mass class.
+ *
+ * @category HostextManager
+ * @package  FOGProject
+ * @author   Yoann LAMY
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */
+ 
 class HostextManager extends FOGManagerController
 {
     /**
@@ -20,7 +31,7 @@ class HostextManager extends FOGManagerController
      */
     public $tablename = 'hostext';
     /**
-     * Perform the database and plugin installation
+     * Install our database
      *
      * @return bool
      */
@@ -62,30 +73,37 @@ class HostextManager extends FOGManagerController
             'heId',
             'heId'
         );
-        return self::$DB->query($sql);
+        if (!self::$DB->query($sql)) {
+            return false;
+        }
+        return true;
     }
     /**
      * Gets the variable name.
      *
      * @param string $variable the variable
+     * @param bool   $retTypesArr Return the types array
      *
      * @return string
      */	
     public function getVariableName(
-        $variable = ''
+        $variable = '',
+        $retTypesArr = false
     ) {
         $types = array(
             'name' => _('Host Name'),
             'primac' => _('Primary MAC'),
             'description' => _('Host description'),
         );
-		return $types[$variable];
-    }	
+        if ($retTypesArr) return $types;
+        return $types[$variable];
+    }
     /**
      * Gets the predefined variables.
      *
      * @param string $selected the item that is selected
      * @param bool   $array    the item is an array.
+     * @param mixed $id the id to use
      *
      * @return string
      */
@@ -94,11 +112,7 @@ class HostextManager extends FOGManagerController
         $array = false,
         $id = ''
     ) {
-        $types = array(
-            'name' => _('Host Name'),
-            'primac' => _('Primary MAC'),
-            'description' => _('Host description'),
-        );
+        $types = $this->getVariableName('', true);
         self::$HookManager->processEvent(
             'HOSTEXT_VARIABLE_TYPES',
             array('types' => &$types)

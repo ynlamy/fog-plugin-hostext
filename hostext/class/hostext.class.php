@@ -11,6 +11,16 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
+/**
+ * The Hostext class.
+ *
+ * @category Hostext
+ * @package  FOGProject
+ * @author   Yoann LAMY
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */ 
 class Hostext extends FOGController
 {
     /**
@@ -20,7 +30,7 @@ class Hostext extends FOGController
      */
     protected $databaseTable = 'hostext';
     /**
-     * The hoststatus table fields and common names
+     * The hostext table fields and common names
      *
      * @var array
      */
@@ -39,5 +49,5 @@ class Hostext extends FOGController
         'name',
         'url',
         'variable'
-    );	
+    );
 }
