@@ -1,6 +1,6 @@
 <?php
 /**
- * Hostext page.
+ * Hostext management page.
  *
  * PHP version 5
  *
@@ -11,6 +11,16 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
+/**
+ * Hostext management page.
+ *
+ * @category HostextManagementPage
+ * @package  FOGProject
+ * @author   Yoann LAMY
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */ 
 class HostextManagementPage extends FOGPage
 {
     /**
@@ -416,7 +426,7 @@ class HostextManagementPage extends FOGPage
             if (!$this->obj->save()) {
                 throw new Exception(_('Host Ext update failed!'));
             }
-            $hook = 'HOSTEXT_UPDATE_SUCCESS';
+            $hook = 'HOSTEXT_EDIT_SUCCESS';
             $msg = json_encode(
                 array(
                     'msg' => _('Host Ext updated!'),
@@ -424,7 +434,7 @@ class HostextManagementPage extends FOGPage
                 )
             );
         } catch (Exception $e) {
-            $hook = 'HOSTEXT_UPDATE_FAIL';
+            $hook = 'HOSTEXT_EDIT_FAIL';
             $msg = json_encode(
                 array(
                     'error' => $e->getMessage(),
