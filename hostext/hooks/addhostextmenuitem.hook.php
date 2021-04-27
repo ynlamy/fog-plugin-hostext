@@ -11,6 +11,16 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
+/**
+ * Adds the Hostext menu item.
+ *
+ * @category AddHostextMenuItem
+ * @package  FOGProject
+ * @author   Yoann LAMY
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */ 
 class AddHostextMenuItem extends Hook
 {
     /**
@@ -24,7 +34,7 @@ class AddHostextMenuItem extends Hook
      *
      * @var string
      */
-    public $description = 'Add the Hostext field to Hosts';
+    public $description = 'Add menu item for hostext';
     /**
      * The active flag.
      *
@@ -45,6 +55,9 @@ class AddHostextMenuItem extends Hook
     public function __construct()
     {
         parent::__construct();
+        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
+            return;
+        }
         self::$HookManager
             ->register(
                 'MAIN_MENU_DATA',
@@ -77,9 +90,6 @@ class AddHostextMenuItem extends Hook
      */
     public function menuData($arguments)
     {
-        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
-            return;
-        }
         self::arrayInsertAfter(
             'storage',
             $arguments['main'],
@@ -99,9 +109,6 @@ class AddHostextMenuItem extends Hook
      */
     public function addSearch($arguments)
     {
-        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
-            return;
-        }
         array_push($arguments['searchPages'], $this->node);
     }
     /**
@@ -113,9 +120,6 @@ class AddHostextMenuItem extends Hook
      */
     public function addPageWithObject($arguments)
     {
-        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
-            return;
-        }
         array_push($arguments['PagesWithObjects'], $this->node);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Add the Hostext to host.
+ * Adds the Hostext report type.
  *
  * PHP version 5
  * 
@@ -11,6 +11,16 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
+/**
+ * Adds the Hostext report type.
+ * 
+ * @category AddHostextType
+ * @package  FOGProject
+ * @author   Yoann LAMY
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */ 
  class AddHostextType extends Hook
 {
     /**
@@ -45,6 +55,9 @@
     public function __construct()
     {
         parent::__construct();
+        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
+            return;
+        }
         self::$HookManager
             ->register(
                 'REPORT_TYPES',

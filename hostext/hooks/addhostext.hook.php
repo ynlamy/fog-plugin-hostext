@@ -1,6 +1,6 @@
 <?php
 /**
- * Add the Hostext to host.
+ * Adds the Hostext choice to host.
  *
  * PHP version 5
  *
@@ -11,6 +11,16 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
+/**
+ * Adds the Hostext choice to host.
+ *
+ * @category AddHostext
+ * @package  FOGProject
+ * @author   Yoann LAMY
+ * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
+ * @link     https://github.com/ynlamy/fog-plugin-hostext
+ * @link     https://fogproject.org
+ */ 
 class AddHostext extends Hook
 {
     /**
@@ -45,6 +55,9 @@ class AddHostext extends Hook
     public function __construct()
     {
         parent::__construct();
+        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
+            return;
+        }
         self::$HookManager
             ->register(
                 'HOST_DATA',
@@ -71,14 +84,7 @@ class AddHostext extends Hook
     public function hostData($arguments)
     {
         global $node;
-        global $sub;
-        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
-            return;
-        }
         if ($node != 'host') {
-            return;
-        }
-        if ($sub == 'pending') {
             return;
         }
         $cnt = self::getClass('HostextManager')->count();
@@ -89,7 +95,7 @@ class AddHostext extends Hook
             );
             $Hostexts = $Hostexts->hostexts;
             $arguments['templates'][3] .= '<br/>${hostext}';
-            foreach ((array)$arguments['data'] as $index => &$vals) {
+                foreach ((array)$arguments['data'] as $index => &$vals) {
                 $hostext_field = '';
                 foreach ((array)$Hostexts as &$Hostext) {
                     $hostext_field .= '<a href="';
@@ -104,7 +110,7 @@ class AddHostext extends Hook
                         default:
                             $hostext_field .= $arguments['data'][$index]['host_name'];
                     }
-                    $hostext_field .= '"><i class="icon fa fa-external-link" title="';
+                    $hostext_field .= '" target="_blank"><i class="icon fa fa-external-link" title="';
                     $hostext_field .= $Hostext->name;
                     $hostext_field .= '"></i></a> ';
                     unset($Hostext);
@@ -124,10 +130,6 @@ class AddHostext extends Hook
     public function hostFields($arguments)
     {
         global $node;
-        global $sub;
-        if (!in_array($this->node, (array)self::$pluginsinstalled)) {
-            return;
-        }
         if ($node != 'host') {
             return;
         }
@@ -151,7 +153,7 @@ class AddHostext extends Hook
                     default:
                         $hostext_field .= $arguments['Host']->get('name');
                 }
-                $hostext_field .= '"><i class="icon fa fa-external-link" title="';
+                $hostext_field .= '" target="_blank"><i class="icon fa fa-external-link" title="';
                 $hostext_field .= $Hostext->name;
                 $hostext_field .= '"></i></a> ';
                 unset($Hostext);
