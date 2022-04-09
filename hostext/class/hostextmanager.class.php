@@ -21,7 +21,6 @@
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
  */
- 
 class HostextManager extends FOGManagerController
 {
     /**
@@ -68,7 +67,7 @@ class HostextManager extends FOGManagerController
             array(
                 'heId'
             ),
-            'MyISAM',
+            'InnoDB',
             'utf8',
             'heId',
             'heId'
