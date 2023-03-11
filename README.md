@@ -6,7 +6,7 @@ This plugin have been created by Yoann LAMY under the terms of the [GNU General 
 
 ![Preview](fog-plugin-hostext.gif)
 
-This plugin has been tested with [FOG Project](https://fogproject.org/) v1.5.9.139.
+This plugin has been tested with [FOG Project](https://fogproject.org/) v1.5.10 (PHP 7 and PHP 8 supported).
 
 ### Installation
 
