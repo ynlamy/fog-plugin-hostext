@@ -93,8 +93,13 @@ class AddHostext extends Hook
             $Hostexts = json_decode(
                 Route::getData()
             );
-            $Hostexts = $Hostexts->hostexts;
-            $arguments['templates'][3] .= '<br/>${hostext}';
+	    $Hostexts = $Hostexts->hostexts;
+            if (self::$fogpingactive) {
+                $insertIndex = 3;
+            } else {
+                $insertIndex = 2;
+	    }
+            $arguments['templates'][$insertIndex] .= '<br/>${hostext}';
                 foreach ((array)$arguments['data'] as $index => &$vals) {
                 $hostext_field = '';
                 foreach ((array)$Hostexts as &$Hostext) {
