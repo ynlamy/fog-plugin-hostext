@@ -20,7 +20,7 @@
  * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
- */ 
+ */
 class HostextManagementPage extends FOGPage
 {
     /**
@@ -73,7 +73,7 @@ class HostextManagementPage extends FOGPage
             . '</label>',
             '<a href="?node=hostext&sub=edit&id=${id}" title="'
             . _('Edit')
-            . '">${name}</a>',
+            . '">(${id}) - ${name}</a>',
             '${url}',
             '${variable_name}'
         );
@@ -95,9 +95,9 @@ class HostextManagementPage extends FOGPage
          */
         self::$returnData = function (&$Hostext) {
             $this->data[] = array(
-                'id'    => $Hostext->id,
-                'name'  => $Hostext->name,
-                'url'  => $Hostext->url,
+                'id'    => Initiator::e($Hostext->id),
+                'name'  => Initiator::e($Hostext->name),
+                'url'  => Initiator::e($Hostext->url),
                 'variable_name' => self::getClass('HostextManager')
                                     ->getVariableName(
                                         $Hostext->variable
@@ -142,7 +142,7 @@ class HostextManagementPage extends FOGPage
             . '</label>' => '<div class="input-group">'
             . '<input class="form-control hostextinput-name" type='
             . '"text" name="name" id="name" required value="'
-            . $name
+            . Initiator::e($name)
             . '"/>'
             . '</div>',
             '<label for="url">'
@@ -150,7 +150,7 @@ class HostextManagementPage extends FOGPage
             . '</label>' => '<div class="input-group">'
             . '<input class="form-control hostextinput-url" type='
             . '"text" name="url" id="url" required value="'
-            . $url
+            . Initiator::e($url)
             . '"/>',
             '<label for="variable">'
             . _('Host Ext Variable')
@@ -305,7 +305,7 @@ class HostextManagementPage extends FOGPage
             . '</label>' => '<div class="input-group">'
             . '<input class="form-control hostextinput-name" type='
             . '"text" name="name" id="name" required value="'
-            . $name
+            . Initiator::e($name)
             . '"/>'
             . '</div>',
             '<label for="url">'
@@ -313,7 +313,7 @@ class HostextManagementPage extends FOGPage
             . '</label>' => '<div class="input-group">'
             . '<input class="form-control hostextinput-url" type='
             . '"text" name="url" id="url" required value="'
-            . $url
+            . Initiator::e($url)
             . '"/>',
             '<label for="variable">'
             . _('Host Ext Variable')

@@ -20,7 +20,7 @@
  * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
- */ 
+ */
 class AddHostext extends Hook
 {
     /**
@@ -104,19 +104,19 @@ class AddHostext extends Hook
                 $hostext_field = '';
                 foreach ((array)$Hostexts as &$Hostext) {
                     $hostext_field .= '<a href="';
-                    $hostext_field .= $Hostext->url;
+                    $hostext_field .= Initiator::e($Hostext->url);
                     switch ($Hostext->variable) {
                         case 'primac':
-                            $hostext_field .= $arguments['data'][$index]['host_mac'];
+                            $hostext_field .= Initiator::e($arguments['data'][$index]['host_mac']);
                             break;
                         case 'description':
-                            $hostext_field .= $arguments['data'][$index]['host_desc'];
+                            $hostext_field .= Initiator::e($arguments['data'][$index]['host_desc']);
                             break;
                         default:
-                            $hostext_field .= $arguments['data'][$index]['host_name'];
+                            $hostext_field .= Initiator::e($arguments['data'][$index]['host_name']);
                     }
                     $hostext_field .= '" target="_blank"><i class="icon fa fa-external-link" title="';
-                    $hostext_field .= $Hostext->name;
+                    $hostext_field .= Initiator::e($Hostext->name);
                     $hostext_field .= '"></i></a> ';
                     unset($Hostext);
                 }
@@ -145,21 +145,22 @@ class AddHostext extends Hook
                 Route::getData()
             );
             $Hostexts = $Hostexts->hostexts;
+            $hostext_field = '';
             foreach ((array)$Hostexts as &$Hostext) {
                 $hostext_field .= '<a href="';
-                $hostext_field .= $Hostext->url;
+                $hostext_field .= Initiator::e($Hostext->url);
                 switch ($Hostext->variable) {
                     case 'primac':
-                        $hostext_field .= $arguments['Host']->get('mac');
+                        $hostext_field .= Initiator::e($arguments['Host']->get('mac'));
                         break;
                     case 'description':
-                        $hostext_field .= $arguments['Host']->get('description');
+                        $hostext_field .= Initiator::e($arguments['Host']->get('description'));
                         break;
                     default:
-                        $hostext_field .= $arguments['Host']->get('name');
+                        $hostext_field .= Initiator::e($arguments['Host']->get('name'));
                 }
                 $hostext_field .= '" target="_blank"><i class="icon fa fa-external-link" title="';
-                $hostext_field .= $Hostext->name;
+                $hostext_field .= Initiator::e($Hostext->name);
                 $hostext_field .= '"></i></a> ';
                 unset($Hostext);
             }

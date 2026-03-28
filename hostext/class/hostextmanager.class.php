@@ -30,7 +30,7 @@ class HostextManager extends FOGManagerController
      */
     public $tablename = 'hostext';
     /**
-     * Install our database
+     * Install our database.
      *
      * @return bool
      */
@@ -81,10 +81,10 @@ class HostextManager extends FOGManagerController
      * Gets the variable name.
      *
      * @param string $variable the variable
-     * @param bool   $retTypesArr Return the types array
+     * @param bool   $retTypesArr Return the types array.
      *
      * @return string
-     */	
+     */
     public function getVariableName(
         $variable = '',
         $retTypesArr = false
@@ -95,14 +95,14 @@ class HostextManager extends FOGManagerController
             'description' => _('Host description'),
         );
         if ($retTypesArr) return $types;
-        return $types[$variable];
+        return Initiator::e(trim($types[$variable]));
     }
     /**
      * Gets the predefined variables.
      *
      * @param string $selected the item that is selected
-     * @param bool   $array    the item is an array.
-     * @param mixed $id the id to use
+     * @param bool   $array    the item is an array
+     * @param string $id       the id to use.
      *
      * @return string
      */
@@ -120,9 +120,9 @@ class HostextManager extends FOGManagerController
         foreach ((array) $types as $val => &$text) {
             printf(
                 '<option value="%s"%s>%s</option>',
-                trim($val),
+                Initiator::e(trim($val)),
                 (
-                    $template !== false
+                    (isset($template) && $template !== false)
                     && trim($template) === trim($val) ?
                     ' selected' :
                     (
@@ -131,9 +131,9 @@ class HostextManager extends FOGManagerController
                         ''
                     )
                 ),
-                $text
+                Initiator::e($text)
             );
-        }        
+        }
         return sprintf(
             '<select class="form-control hostextselect-variable" name="variable%s"%s>%s%s</select>',
             (
