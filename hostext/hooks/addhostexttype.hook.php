@@ -20,7 +20,7 @@
  * @license  http://opensource.org/licenses/gpl-3.0 GPLv3
  * @link     https://github.com/ynlamy/fog-plugin-hostext
  * @link     https://fogproject.org
- */ 
+ */
  class AddHostextType extends Hook
 {
     /**
